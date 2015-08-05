@@ -43,7 +43,7 @@ public class wottrv2_checkAccessToken {
 			if (wottrv2_main.debug){System.out.println("Access token fine, let's prolong it");}
 			try {
 				wottrv2_prolongAccessToken.prolongAccessToken(realm, access_token);
-				wottrv2_updateapi.updateAPI();
+				wottrv2_updateapi.updateAPI(1);
 			} catch (IOException | ClassNotFoundException | JSONException | SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -53,7 +53,7 @@ public class wottrv2_checkAccessToken {
 			if (wottrv2_main.debug){System.out.println("Access token fine, let's prolong it and get tank in garage and MoE");}
 			try {
 				wottrv2_prolongAccessToken.prolongAccessToken(realm, access_token);
-				wottrv2_updateapi.updateAPI();
+				wottrv2_updateapi.updateAPI(0);
 				wottrv2_getTanksAndMoE.getTanksAndMoE();
 			} catch (IOException | ClassNotFoundException | JSONException | SQLException e1) {
 				e1.printStackTrace();

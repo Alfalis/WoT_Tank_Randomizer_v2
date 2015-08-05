@@ -51,8 +51,12 @@ public class wottrv2_getAccessToken {
 
 		ActionListener al_get_id_token = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if (wottrv2_main.debug){System.out.println("Opening authentication site in default browser");}
 	    		String url = "https://api.worldoftanks." + realm + "/wot/auth/login/?application_id=" + applicationID + "&redirect_uri=https://" + realm + ".wargaming.net/developers/api_explorer/wot/auth/login/complete/";
+	    		//Special case for NA users, difference between "na" and "com"
+	    		if (realm.equals("com")){
+	    			url = "https://api.worldoftanks." + realm + "/wot/auth/login/?application_id=" + applicationID + "&redirect_uri=https://na.wargaming.net/developers/api_explorer/wot/auth/login/complete/";
+	    		}
+				if (wottrv2_main.debug){System.out.println("Opening authentication site in default browser: " + url);}
 				try {
 					Desktop.getDesktop().browse(new URL(url).toURI());
 				} catch (IOException | URISyntaxException e1) {}

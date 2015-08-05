@@ -22,7 +22,7 @@ public class wottrv2_main{
 		//Admin things
 		//For logging use: java -jar WoT_Tank_Randomizer_v2.jar debug > WoT_Tank_Randomizer_v2_log.txt
 		debug = false;
-		version = 2.01f;
+		version = 2.02f;
 		
 		//User debug option
 		if (args.length > 0){

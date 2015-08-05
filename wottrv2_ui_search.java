@@ -118,7 +118,7 @@ public class wottrv2_ui_search{
 				wottrv2_sql.writeToDB(sql);
 				searchUserFrame.setVisible(false);
 				try {
-					wottrv2_updateapi.updateAPI();
+					wottrv2_updateapi.updateAPI(1);
 				} catch (ClassNotFoundException | SQLException | IOException | JSONException e1) {
 					e1.printStackTrace();
 				}

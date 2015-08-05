@@ -81,7 +81,7 @@ public class wottrv2_ui_main {
 		jmi_updateapi.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
 				try {
-					wottrv2_updateapi.updateAPI();
+					wottrv2_updateapi.updateAPI(0);
 				} catch (ClassNotFoundException | SQLException | IOException | JSONException e1) {
 					if (wottrv2_main.debug){e1.printStackTrace();}
 				}
@@ -93,7 +93,7 @@ public class wottrv2_ui_main {
 		JMenuItem jmi_updategarage = new JMenuItem("Tanks in garage and MoE");
 		jmi_updategarage.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
-				wottrv2_checkAccessToken.checkAccessToken(0);
+				wottrv2_utilities.tanksmoewarnframe();
 			}
 		});
 		jmi_updategarage.setToolTipText("Get Marks of Excellence and the tanks you currently have in your garage");
@@ -127,7 +127,7 @@ public class wottrv2_ui_main {
 		jmi_aboutupdatewottr.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
 				try {
-					Desktop.getDesktop().browse(new URL("http://alfalis.de/WoT_Tank_Randomizer_v2/WoT_Tank_Randomizer_v2.rar").toURI());
+					Desktop.getDesktop().browse(new URL("http://alfalis.de/WoT_Tank_Randomizer_v2").toURI());
 				} catch (IOException | URISyntaxException e1) {
 					e1.printStackTrace();
 				}
