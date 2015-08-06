@@ -12,14 +12,17 @@ public class wottrv2_randomizer {
 	static ArrayList <String> al_all_tank_id = new ArrayList <String>();
 	static ArrayList <String> al_relevant_tank_id = new ArrayList <String>();
 	static ArrayList <String> al_randomize_tank_id = new ArrayList <String>();
+	static ArrayList <String> al_played_tank_id = new ArrayList <String>();
+	public static String randomized_tank_id;
 
 	public static void randomize() throws ClassNotFoundException, SQLException, MalformedURLException{
 		if (wottrv2_main.debug){System.out.println("-- Randomizer Start --");}
+		wottrv2_ui_main.played_checkbox.setSelected(false);
 		//Check that we actually have tanks to randomize
 		if (al_randomize_tank_id.size() > 0){
 			Random randomGenerator = new Random(System.currentTimeMillis());
 			int randomint = randomGenerator.nextInt(al_randomize_tank_id.size());
-			String randomized_tank_id = al_randomize_tank_id.get(randomint);
+			randomized_tank_id = al_randomize_tank_id.get(randomint);
 			if (al_randomize_tank_id.size() > 1){
 				if (wottrv2_main.last_randomized_tank_id.equals(randomized_tank_id)){
 					if (randomint == al_randomize_tank_id.size() - 1){
@@ -63,7 +66,6 @@ public class wottrv2_randomizer {
 			wottrv2_ui_main.tank_type_label.setText(randomized_type);
 		}
 		else{
-			//ToDo: Tell the user that he doesn't have tanks for set filters
 			if (wottrv2_main.debug){System.out.println("No tanks found to randomize");}
 		}
 		if (wottrv2_main.debug){System.out.println("-- Randomizer Stop --");}
@@ -106,7 +108,26 @@ public class wottrv2_randomizer {
 				}
 			}
 		}
-		if (wottrv2_main.debug){System.out.println("Number of tanks from relevant_tanks that matched the filters: " + al_randomize_tank_id.size());}
+		for (int i = 0; i < al_played_tank_id.size(); i++){
+			for (int j = 0; j < al_randomize_tank_id.size(); j++){
+				if (al_played_tank_id.get(i).equals(al_randomize_tank_id.get(j))){
+					if (wottrv2_main.debug){System.out.println("Trying to remove tank_id " + al_played_tank_id.get(i) + " from al_tandomize_tank_id");}
+					al_randomize_tank_id.remove(al_played_tank_id.get(i));
+				}
+			}
+		}
+		if (wottrv2_main.debug){
+			System.out.println("---------------");
+			System.out.println("al_played_tank_id.size(): " + al_played_tank_id.size());
+			for (int i = 0; i < al_played_tank_id.size(); i++){
+				System.out.println("played_tank " + (i + 1) + ": " + al_played_tank_id.get(i));
+			}
+			System.out.println("al_randomize_tank_id.size(): " + al_randomize_tank_id.size());
+			for (int i = 0; i < al_randomize_tank_id.size(); i++){
+				System.out.println("randomize_tank " + (i + 1) + ": " + al_randomize_tank_id.get(i));
+			}
+			System.out.println("Number of tanks from relevant_tanks that matched the filters: " + al_randomize_tank_id.size());
+		}
 		wottrv2_ui_main.randomize_button.setText("Randomize (" + al_randomize_tank_id.size() + ")");
 		if (al_randomize_tank_id.size() > 0){
 			wottrv2_ui_main.randomize_button.setEnabled(true);

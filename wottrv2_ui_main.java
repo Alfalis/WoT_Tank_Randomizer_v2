@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +25,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.ToolTipManager;
 
 import org.json.JSONException;
 
@@ -45,6 +49,10 @@ public class wottrv2_ui_main {
 	public static JPanel middle_panel = new JPanel();
 	public static JLabel middle_panel_spacer = new JLabel();
 	public static JPanel right_panel = new JPanel();
+	public static JPanel checkbox_spacer_left = new JPanel();
+	public static JPanel checkbox_spacer_right = new JPanel();
+	public static JCheckBox played_checkbox = new JCheckBox();
+	public static JLabel checkbox_label = new JLabel("Played");
 	
 	public static void openMainFrame(){
 		if (wottrv2_main.debug){System.out.println("-- Main frame creation --");}
@@ -69,6 +77,7 @@ public class wottrv2_ui_main {
 				}
 			}
 		});
+		ToolTipManager.sharedInstance().setDismissDelay(20000);
 		
 		//Menubar stuff start
 		JMenuBar menubar = new JMenuBar();
@@ -205,6 +214,17 @@ public class wottrv2_ui_main {
 		filter_tier.setPreferredSize(new Dimension(155,25));
 		filter_tier.setMaximumRowCount(11);
 		randomize_button.setPreferredSize(new Dimension(150,30));
+		checkbox_spacer_left.setBackground(Color.WHITE);
+		checkbox_spacer_left.setPreferredSize(new Dimension(115,30));
+		checkbox_spacer_right.setBackground(Color.WHITE);
+		checkbox_spacer_right.setPreferredSize(new Dimension(20,30));
+		played_checkbox.setBackground(Color.WHITE);
+		checkbox_label.setPreferredSize(new Dimension(60,30));
+		String checkbox_tooltip = "<html>Check \"Played\" to mark this tank as played and ignore it during further randomization.<br />"
+				+ "This is only valid during runtime, so if you want to reset this simply restart WoT Tank Randomizer.<br />"
+				+ "Refer to the online help (About - Online Help) for further information!</html>";
+		played_checkbox.setToolTipText(checkbox_tooltip);
+		checkbox_label.setToolTipText(checkbox_tooltip);
 		//size and stuff definition stop
 		
 		//add stuff to panels start
@@ -226,7 +246,11 @@ public class wottrv2_ui_main {
 		tank_pic_label.add(tank_moe_label);
 		mainFrame.add(middle_panel);
 		mainFrame.add(right_panel);
+		mainFrame.add(checkbox_spacer_left);
 		mainFrame.add(randomize_button);
+		mainFrame.add(checkbox_spacer_right);
+		mainFrame.add(played_checkbox);
+		mainFrame.add(checkbox_label);
 		//add stuff to mainframe stop
 		
 		//ActionListener start
@@ -283,6 +307,51 @@ public class wottrv2_ui_main {
 			}
 		};
 		filter_tier.addActionListener(filter_tier_al);
+		played_checkbox.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if (played_checkbox.isSelected()){
+					wottrv2_randomizer.al_played_tank_id.add(wottrv2_randomizer.randomized_tank_id);
+				}
+				else{
+					wottrv2_randomizer.al_played_tank_id.remove(wottrv2_randomizer.randomized_tank_id);
+				}
+				int nation = filter_nation.getSelectedIndex();
+				int type = filter_type.getSelectedIndex();
+				int tier = filter_tier.getSelectedIndex();
+				try {
+					wottrv2_randomizer.getAmountRandomize(nation_array[nation], type_array[type], tier_array[tier]);
+				} catch (ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+				mainFrame.requestFocus();
+			}
+		});
+		checkbox_label.addMouseListener(new MouseListener(){
+			public void mouseClicked(MouseEvent arg0) {
+				if (played_checkbox.isSelected()){
+					played_checkbox.setSelected(false);
+					wottrv2_randomizer.al_played_tank_id.remove(wottrv2_randomizer.randomized_tank_id);
+				}
+				else{
+					played_checkbox.setSelected(true);
+					wottrv2_randomizer.al_played_tank_id.add(wottrv2_randomizer.randomized_tank_id);
+				}
+				int nation = filter_nation.getSelectedIndex();
+				int type = filter_type.getSelectedIndex();
+				int tier = filter_tier.getSelectedIndex();
+				try {
+					wottrv2_randomizer.getAmountRandomize(nation_array[nation], type_array[type], tier_array[tier]);
+				} catch (ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+				mainFrame.requestFocus();
+			}
+			public void mouseEntered(MouseEvent arg0) {}
+			public void mouseExited(MouseEvent arg0) {}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+			
+		});
 		//ActionListener stop
 		
 		mainFrame.setJMenuBar(menubar);

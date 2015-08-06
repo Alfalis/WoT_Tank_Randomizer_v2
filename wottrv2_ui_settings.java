@@ -59,7 +59,7 @@ public class wottrv2_ui_settings {
 		settingsframe.setLayout(new FlowLayout());
 		settingsframe.setResizable(false);
 		settingsframe.setSize(500,355);
-		settingsframe.setLocation(250,250);
+		settingsframe.setLocationRelativeTo(wottrv2_ui_main.mainFrame);
 		settingsframe.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		settingsframe.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
