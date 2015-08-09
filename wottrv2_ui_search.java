@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -43,6 +44,7 @@ public class wottrv2_ui_search{
 	public static void openSearchUserFrame(){
 		if (wottrv2_main.debug){System.out.println("-- Search frame creation --");}
 		JFrame searchUserFrame = new JFrame("Search User");
+		searchUserFrame.setIconImage(new ImageIcon(wottrv2_main.class.getResource("/img/icon.png")).getImage());
 		searchUserFrame.setLayout(new FlowLayout());
 		searchUserFrame.setLocation(100,100);
 		searchUserFrame.setResizable(false);

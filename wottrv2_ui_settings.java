@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -56,11 +57,13 @@ public class wottrv2_ui_settings {
 		filter_nation.removeActionListener(alistener_filter_nation);
 		filter_type.removeActionListener(alistener_filter_type);
 		filter_tier.removeActionListener(alistener_filter_tier);
+		settingsframe.setIconImage(new ImageIcon(wottrv2_main.class.getResource("/img/icon.png")).getImage());
 		settingsframe.setLayout(new FlowLayout());
 		settingsframe.setResizable(false);
 		settingsframe.setSize(500,355);
 		settingsframe.setLocationRelativeTo(wottrv2_ui_main.mainFrame);
 		settingsframe.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		wottrv2_ui_main.mainFrame.setVisible(false);
 		settingsframe.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				try {

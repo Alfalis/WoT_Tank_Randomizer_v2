@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -26,7 +27,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.ToolTipManager;
-
 import org.json.JSONException;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
@@ -60,6 +60,7 @@ public class wottrv2_ui_main {
 		if (wottrv2_main.update_available == true){
 			wottrv2_ui_main.mainFrame.setTitle("WoT Tank Randomizer v" + wottrv2_main.version + " - New Version available!");
 		}
+		mainFrame.setIconImage(new ImageIcon(wottrv2_main.class.getResource("/img/icon.png")).getImage());
 		mainFrame.setLayout(new FlowLayout());
 		mainFrame.setResizable(false);
 		mainFrame.setSize(505,198);
@@ -117,7 +118,6 @@ public class wottrv2_ui_main {
 		jmi_settingstanks.addActionListener(new ActionListener(){
 			public void actionPerformed (ActionEvent e){
 				try {
-					mainFrame.setVisible(false);
 					wottrv2_ui_settings.openSettingsFrame();
 				} catch (ClassNotFoundException | SQLException e1) {
 					e1.printStackTrace();

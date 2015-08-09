@@ -3,6 +3,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.sqlite.SQLiteConfig;
+
 public class wottrv2_sql{
 
 	public static void createDB() throws ClassNotFoundException, SQLException{
@@ -85,7 +87,9 @@ public class wottrv2_sql{
 	public static void openDBConnection(){
 		try {
 			Class.forName("org.sqlite.JDBC");
-			wottrv2_main.con = DriverManager.getConnection("jdbc:sqlite:WoTTRv2_database.db");
+			SQLiteConfig config = new SQLiteConfig();
+			config.setEncoding(SQLiteConfig.Encoding.UTF8);
+			wottrv2_main.con = DriverManager.getConnection("jdbc:sqlite:WoTTRv2_database.db", config.toProperties());
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			if (wottrv2_main.debug){System.out.println("Error while opening database, stopping WoT Tank Randomizer");}
