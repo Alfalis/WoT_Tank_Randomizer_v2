@@ -43,13 +43,13 @@ public class wottrv2_utilities {
 	
 	public static void createdebugbatch() throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("WoT_Tank_Randomizer_v2_debug.bat", "UTF-8");
-		writer.println("java -Dfile.encoding=UTF-8 -jar WoT_Tank_Randomizer_v2.jar debug > WoT_Tank_Randomizer_v2_log.txt");
+		writer.println("start javaw -Dfile.encoding=UTF-8 -jar WoT_Tank_Randomizer_v2.jar debug > WoT_Tank_Randomizer_v2_log.txt");
 		writer.close();
 	}
 	
 	public static void createstartbatch() throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("Start_Tank_Randomizer.bat", "UTF-8");
-		writer.println("java -Dfile.encoding=UTF-8 -jar WoT_Tank_Randomizer_v2.jar");
+		writer.println("start javaw -Dfile.encoding=UTF-8 -jar WoT_Tank_Randomizer_v2.jar");
 		writer.close();
 	}
 	
