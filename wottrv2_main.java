@@ -22,7 +22,7 @@ public class wottrv2_main{
 		//Admin things
 		//For logging use: java -jar WoT_Tank_Randomizer_v2.jar debug > WoT_Tank_Randomizer_v2_log.txt
 		debug = false;
-		version = 2.04f;
+		version = 2.05f;
 		
 		//User debug option
 		if (args.length > 0){
@@ -40,6 +40,11 @@ public class wottrv2_main{
 		File f = new File("WoT_Tank_Randomizer_v2_debug.bat");
 		if (!f.exists()){
 			wottrv2_utilities.createdebugbatch();
+		}
+		
+		f = new File("Start_Tank_Randomizer.bat");
+		if (!f.exists()){
+			wottrv2_utilities.createstartbatch();
 		}
 		
 		//Check if database exists, if not create it

@@ -89,6 +89,7 @@ public class wottrv2_sql{
 			Class.forName("org.sqlite.JDBC");
 			SQLiteConfig config = new SQLiteConfig();
 			config.setEncoding(SQLiteConfig.Encoding.UTF8);
+			config.enforceForeignKeys(true); 
 			wottrv2_main.con = DriverManager.getConnection("jdbc:sqlite:WoTTRv2_database.db", config.toProperties());
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
